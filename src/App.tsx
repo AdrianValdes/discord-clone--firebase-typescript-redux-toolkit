@@ -1,11 +1,11 @@
 import React from 'react';
-
+import { Sidebar } from './channels/Sidebar';
 import './App.css';
 
 function App() {
   return (
-    <div className='App'>
-      <h2>Hello World</h2>
+    <div className='app'>
+      <Sidebar />
     </div>
   );
 }
