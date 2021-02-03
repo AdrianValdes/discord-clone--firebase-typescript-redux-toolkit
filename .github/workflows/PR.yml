@@ -24,5 +24,5 @@ jobs:
       - name: Cache Dependencies
         run: deno cache deps.ts
 
-      - name: Run Tests
-        run: deno test -A --unstable
+      - name: Lint
+        run: npm run lint
