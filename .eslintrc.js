@@ -32,7 +32,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'no-param-reassign': 'off',
-    'no-console': 'error',
+    'no-console': 'warn',
     'jsx-a11y/no-autofocus': 'off',
     'react/forbid-prop-types': 'off',
     'import/prefer-default-export': 'off',
