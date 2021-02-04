@@ -7,14 +7,19 @@ import {
   SendRounded,
 } from '@material-ui/icons';
 import React from 'react';
+
 import './ChatHeader.css';
 
-export const ChatHeader = () => (
+interface Props {
+  channelName: string;
+}
+
+export const ChatHeader = ({ channelName }: Props) => (
   <div className='chatHeader'>
     <div className='chatHeader__left'>
       <h3>
         <span className='chatHeader__hash'>#</span>
-        Test channel Name
+        {channelName}
       </h3>
     </div>
     <div className='chatHeader__right'>
