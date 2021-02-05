@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 0.25;
   min-width: 300px;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #2f3135;
 }
 
@@ -50,9 +50,6 @@
   background-color: #2f3135;
   padding: 10px;
   border-top: 1px solid gray;
-  position: sticky;
-  bottom: 0px;
-  height: 97px;
 }
 
 .sidebar__profileInfo {
