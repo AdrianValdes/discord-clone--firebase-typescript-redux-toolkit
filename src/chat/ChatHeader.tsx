@@ -31,7 +31,7 @@ export const ChatHeader = ({
         />
         <SearchRounded />
       </div>
-      <ExitToApp onClick={() => auth.signOut()} />
+      <ExitToApp fontSize='large' onClick={() => auth.signOut()} />
     </div>
   </div>
 );

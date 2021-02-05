@@ -1,10 +1,11 @@
-import {
-  AddCircle,
-  CardGiftcard,
-  EmojiEmotions,
-  Gif,
-} from '@material-ui/icons';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { AddCircle } from '@material-ui/icons';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+  MouseEvent,
+} from 'react';
 import './Chat.css';
 import { ChatHeader } from './ChatHeader';
 import { Message } from './Message';
@@ -14,6 +15,7 @@ import { db } from '../firebase';
 import { DocumentData, Timestamp } from '@firebase/firestore-types';
 import firebase from 'firebase';
 import { selectUser, User } from '../autenthication/userSlice';
+import { IconButton } from '@material-ui/core';
 
 export interface MessageInterface {
   message: string;
@@ -61,7 +63,9 @@ export const Chat = () => {
     }
   }, [search, messages]);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
 
     const uploadMessage = async () => {
@@ -104,14 +108,18 @@ export const Chat = () => {
         )}
       </div>
       <div className='chat__input'>
-        <AddCircle fontSize='large' />
+        <IconButton disabled={!channelId} onClick={(e) => handleSubmit(e)}>
+          <AddCircle className='chat__inputButton' fontSize='large' />
+        </IconButton>
         <form onSubmit={handleSubmit}>
           <input
             disabled={!channelId}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={
-              channelName ? `Message #${channelName}` : 'Choose a channel'
+              channelName
+                ? `Message #${channelName}`
+                : 'Choose a channel. (You can do that to the left of the screen)'
             }
           />
           <button
@@ -122,12 +130,6 @@ export const Chat = () => {
             Send message
           </button>
         </form>
-
-        <div className='chat__inputIcons'>
-          <CardGiftcard fontSize='large' />
-          <Gif fontSize='large' />
-          <EmojiEmotions fontSize='large' />
-        </div>
       </div>
     </div>
   );

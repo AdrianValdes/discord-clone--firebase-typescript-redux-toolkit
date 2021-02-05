@@ -70,11 +70,6 @@ export const Sidebar = () => {
           <h3>{user.displayName}</h3>
           <p>id: {user.uid.substr(0, 6)}</p>
         </div>
-        <div className='sidebar__profileIcons'>
-          <MicIcon />
-          <HeadsetIcon />
-          <SettingsICon />
-        </div>
       </div>
     </div>
   );

@@ -3,23 +3,27 @@
   flex-direction: column;
   flex: 0.75;
   background-color: #363a3f;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .chat__messages {
   flex: 1;
 }
-
+.chat__inputButton {
+  color: #fff;
+}
 .chat__input {
   display: flex;
   color: lightgrey;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
   border-radius: 5px;
-  margin: 20px;
+  margin: 5px;
   border-top: 1px solid gray;
   background-color: #474b53;
+  position: sticky;
+  bottom: 0px;
+  height: 90px;
 }
 
 .chat__input > form > input {

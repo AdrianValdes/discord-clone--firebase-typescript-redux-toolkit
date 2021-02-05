@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 0.25;
   min-width: 300px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #2f3135;
 }
 
@@ -42,7 +42,6 @@
   align-items: center;
 }
 
-.sidebar__voice,
 .sidebar__profile {
   display: flex;
   justify-content: space-between;
@@ -51,31 +50,15 @@
   background-color: #2f3135;
   padding: 10px;
   border-top: 1px solid gray;
+  position: sticky;
+  bottom: 0px;
+  height: 97px;
 }
-.sidebar__voiceInfo {
-  flex: 1;
-  padding: 10px;
-}
-.sidebar__voiceIcon {
-  color: #4fb185;
-}
-.sidebar__voiceInfo > h3 {
-  color: #4fb185;
-}
-.sidebar__voiceInfo > p {
-  font: smaller;
-}
-.sidebar__voiceIcons > .MuiSvgIcon-root {
-  margin: 5px;
-}
+
 .sidebar__profileInfo {
   flex: 1;
   padding: 10px;
 }
 .sidebar__profileInfo > h3 {
   color: white;
-}
-
-.sidebar__profileIcons > .MuiSvgIcon-root {
-  margin: 5px;
 }
