@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { auth, provider } from '../firebase';
 
-export interface UserState {
+export interface User {
   uid: string;
   photo: string | null;
   email: string | null;
@@ -10,12 +10,17 @@ export interface UserState {
 }
 
 interface Error {
-  error: null | string;
+  error: string;
 }
 
-const initialState = {
-  user: (null as unknown) as UserState,
-  error: (null as unknown) as Error,
+interface Login {
+  user: User | null;
+  error: Error | null;
+}
+
+const initialState: Login = {
+  user: null,
+  error: null,
 };
 
 export const signInUser = createAsyncThunk('user/signInUser', async () => {
@@ -30,7 +35,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<UserState>) => {
+    login: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
     logout: (state) => {

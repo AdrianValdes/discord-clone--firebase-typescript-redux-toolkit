@@ -4,16 +4,12 @@ import AddIcon from '@material-ui/icons/Add';
 import MicIcon from '@material-ui/icons/Mic';
 import HeadsetIcon from '@material-ui/icons/Headset';
 import SettingsICon from '@material-ui/icons/Settings';
-import SignalCellularAlt from '@material-ui/icons/SignalCellularAlt';
-
 import { SidebarChannel } from './SidebarChannel';
 import { Avatar } from '@material-ui/core';
-
 import './Sidebar.css';
-import { Call, InfoOutlined } from '@material-ui/icons';
 import { selectUser } from '../autenthication/userSlice';
 import { useSelector } from 'react-redux';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import { DocumentData } from '@firebase/firestore-types';
 
 interface FirebaseCollections {
@@ -22,7 +18,7 @@ interface FirebaseCollections {
 }
 
 export const Sidebar = () => {
-  const user = useSelector(selectUser);
+  const user = useSelector(selectUser)!;
   const [channels, setChannels] = useState<FirebaseCollections[]>([]);
 
   useEffect(() => {
@@ -68,24 +64,8 @@ export const Sidebar = () => {
         </div>
       </div>
 
-      <div className='sidebar__voice'>
-        <SignalCellularAlt className='sidebar__voiceIcon' fontSize='large' />
-        <div className='sidebar__voiceInfo'>
-          <h3>Voice Connected</h3>
-          <p>Stream</p>
-        </div>
-
-        <div className='sidebar__voiceIcons'>
-          <InfoOutlined />
-          <Call />
-        </div>
-      </div>
       <div className='sidebar__profile'>
-        {user.photo ? (
-          <Avatar onClick={() => auth.signOut()} src={user.photo} />
-        ) : (
-          <Avatar onClick={() => auth.signOut()} />
-        )}
+        {user.photo ? <Avatar src={user.photo} /> : <Avatar />}
         <div className='sidebar__profileInfo'>
           <h3>{user.displayName}</h3>
           <p>id: {user.uid.substr(0, 6)}</p>

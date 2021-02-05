@@ -1,12 +1,12 @@
 import {
   EditLocationRounded,
-  HelpRounded,
   Notifications,
   PeopleAltRounded,
   SearchRounded,
-  SendRounded,
+  ExitToApp,
 } from '@material-ui/icons';
 import React from 'react';
+import { auth } from '../firebase';
 
 import './ChatHeader.css';
 
@@ -23,16 +23,11 @@ export const ChatHeader = ({ channelName }: Props) => (
       </h3>
     </div>
     <div className='chatHeader__right'>
-      <Notifications />
-      <EditLocationRounded />
-      <PeopleAltRounded />
-
       <div className='chatHeader__search'>
         <input placeholder='Search' />
         <SearchRounded />
       </div>
-      <SendRounded />
-      <HelpRounded />
+      <ExitToApp onClick={() => auth.signOut()} />
     </div>
   </div>
 );

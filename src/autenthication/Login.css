@@ -1,17 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
+
 .login {
   display: grid;
   place-items: center;
   height: 100vh;
   width: 100%;
+  background-color: #474b53;
 }
 
-.login > button {
+.login button {
   width: 300px;
   background-color: #738adb;
   color: #eff2f5;
   font-weight: 800;
 }
-.login > button:hover {
+.login button:hover {
   background-color: black;
   color: #738adb;
 }
@@ -19,4 +22,52 @@
 .login > div > img {
   object-fit: contain;
   height: 150px;
+}
+.login h1 {
+  color: #738adb;
+}
+.login__buttonWrapper {
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.google-icon-wrapper {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.google-icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+}
+.btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fffe;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: 'Roboto';
+}
+.btn-text:hover {
+  box-shadow: 0 0 6px #1669f2;
+}
+.btn-text:active {
+  background: #1669f2;
 }

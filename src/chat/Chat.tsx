@@ -13,11 +13,11 @@ import { selectChannelId, selectChannelName } from '../channels/channelSlice';
 import { db } from '../firebase';
 import { DocumentData, Timestamp } from '@firebase/firestore-types';
 import firebase from 'firebase';
-import { selectUser, UserState } from '../autenthication/userSlice';
+import { selectUser, User } from '../autenthication/userSlice';
 
 export interface MessageInterface {
   message: string;
-  user: UserState;
+  user: User;
   timestamp: Timestamp;
   id: string;
 }
@@ -77,7 +77,9 @@ export const Chat = () => {
             disabled={!channelId}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Message #${channelName}`}
+            placeholder={
+              channelName ? `Message #${channelName}` : 'Choose a channel'
+            }
           />
           <button
             disabled={!channelId}
