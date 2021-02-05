@@ -4,7 +4,7 @@ import {
   EmojiEmotions,
   Gif,
 } from '@material-ui/icons';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import './Chat.css';
 import { ChatHeader } from './ChatHeader';
 import { Message } from './Message';
@@ -25,10 +25,12 @@ export interface MessageInterface {
 export const Chat = () => {
   const channelId = useSelector(selectChannelId)!;
   const channelName = useSelector(selectChannelName)!;
+  const user = useSelector(selectUser);
+
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<DocumentData>([]);
-
-  const user = useSelector(selectUser);
+  const [search, setSearch] = useState<string>('');
+  const [searchedMessages, setSearchedMessages] = useState<DocumentData>([]);
 
   useEffect(() => {
     if (channelId) {
@@ -41,13 +43,28 @@ export const Chat = () => {
             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           );
         });
+
+      setSearchedMessages([]);
+      setSearch('');
     }
   }, [channelId]);
+
+  useEffect(() => {
+    if (search) {
+      setSearchedMessages(
+        messages.filter(({ message }: MessageInterface) =>
+          message.includes(search)
+        )
+      );
+    } else {
+      setSearchedMessages([]);
+    }
+  }, [search, messages]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const setMessage = async () => {
+    const uploadMessage = async () => {
       await db
         .collection('channels')
         .doc(channelId)
@@ -58,17 +75,33 @@ export const Chat = () => {
           user,
         });
     };
-    setMessage();
+    uploadMessage();
     setInput('');
   };
 
+  const handleSearchMessage = (e: ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
+
+  const messagesToRender = search ? searchedMessages : messages;
+
   return (
     <div className='chat'>
-      <ChatHeader channelName={channelName} />
+      <ChatHeader
+        handleSearchMessage={handleSearchMessage}
+        channelName={channelName}
+        search={search}
+      />
       <div className='chat__messages'>
-        {messages.map((item: MessageInterface) => (
-          <Message key={item.id} {...item} />
-        ))}
+        {messagesToRender.map(
+          ({ message, user, timestamp, id }: MessageInterface) => (
+            <Message
+              key={id}
+              message={message}
+              user={user}
+              timestamp={timestamp}
+            />
+          )
+        )}
       </div>
       <div className='chat__input'>
         <AddCircle fontSize='large' />

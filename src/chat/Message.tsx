@@ -1,15 +1,24 @@
+import { Timestamp } from '@firebase/firestore-types';
 import { Avatar } from '@material-ui/core';
 import React from 'react';
-import { MessageInterface } from './Chat';
+import { User } from '../autenthication/userSlice';
 import './Message.css';
 
-export const Message = ({ message, user, timestamp }: MessageInterface) => (
+interface Props {
+  message: string;
+  user: User;
+  timestamp: Timestamp;
+}
+
+export const Message = ({ message, user, timestamp }: Props) => (
   <div className='message'>
     <Avatar src={user.photo!} />
     <div className='message__info'>
       <h4>
         Grr Thul
-        <span className='message__timestamp'>{new Date(timestamp?.toDate()).toUTCString()}</span>
+        <span className='message__timestamp'>
+          {new Date(timestamp?.toDate()).toUTCString()}
+        </span>
       </h4>
       <p>{message}</p>
     </div>
