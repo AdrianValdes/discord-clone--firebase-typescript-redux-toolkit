@@ -15,7 +15,7 @@ export const Message = ({ message, user, timestamp }: Props) => (
     <Avatar src={user.photo!} />
     <div className='message__info'>
       <h4>
-        Grr Thul
+        {user.displayName}
         <span className='message__timestamp'>
           {new Date(timestamp?.toDate()).toUTCString()}
         </span>
