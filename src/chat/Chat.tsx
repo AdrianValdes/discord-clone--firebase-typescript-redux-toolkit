@@ -1,10 +1,11 @@
-import { AddCircle } from '@material-ui/icons';
+import { SendOutlined } from '@material-ui/icons';
 import React, {
   ChangeEvent,
   FormEvent,
   useEffect,
   useState,
   MouseEvent,
+  useRef,
 } from 'react';
 import './Chat.css';
 import { ChatHeader } from './ChatHeader';
@@ -33,6 +34,7 @@ export const Chat = () => {
   const [messages, setMessages] = useState<DocumentData>([]);
   const [search, setSearch] = useState<string>('');
   const [searchedMessages, setSearchedMessages] = useState<DocumentData>([]);
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     if (channelId) {
@@ -50,7 +52,9 @@ export const Chat = () => {
       setSearch('');
     }
   }, [channelId]);
-
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   useEffect(() => {
     if (search) {
       setSearchedMessages(
@@ -61,13 +65,16 @@ export const Chat = () => {
     } else {
       setSearchedMessages([]);
     }
+    scrollToBottom();
   }, [search, messages]);
 
   const handleSubmit = (
     e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-
+    if (!input.trim()) {
+      return;
+    }
     const uploadMessage = async () => {
       await db
         .collection('channels')
@@ -106,11 +113,9 @@ export const Chat = () => {
             />
           )
         )}
+        <div ref={messagesEndRef} />
       </div>
       <div className='chat__input'>
-        <IconButton disabled={!channelId} onClick={(e) => handleSubmit(e)}>
-          <AddCircle className='chat__inputButton' fontSize='large' />
-        </IconButton>
         <form onSubmit={handleSubmit}>
           <input
             disabled={!channelId}
@@ -130,6 +135,9 @@ export const Chat = () => {
             Send message
           </button>
         </form>
+        <IconButton disabled={!channelId} onClick={(e) => handleSubmit(e)}>
+          <SendOutlined className='chat__inputButton' />
+        </IconButton>
       </div>
     </div>
   );

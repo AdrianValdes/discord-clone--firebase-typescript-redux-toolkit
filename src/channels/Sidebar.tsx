@@ -55,7 +55,11 @@ export const Sidebar = () => {
             <h4>Text channels</h4>
           </div>
 
-          <AddIcon onClick={handleAddChannel} className='sidebar__addChannel' />
+          <AddIcon
+            onClick={handleAddChannel}
+            className='sidebar__addChannel'
+            fontSize='large'
+          />
         </div>
         <div className='sidebar_channelsList'>
           {channels.map(({ id, channel }) => (
